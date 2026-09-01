@@ -83,8 +83,16 @@ def init_zero_bias(length):
     # TODO: return a 1D float array of zeros with the given length.
     return np.zeros((length,))
 
-# Step 13 - pad_2d (not yet solved)
-# TODO: implement
+# Step 13 - pad_2d
+def pad_2d(images, pad):
+    # TODO: zero-pad the spatial (H, W) dims of a 4D (N, C, H, W) tensor by `pad` on each side.
+    if pad == 0:
+        return images
+    N, C, H, W = images.shape
+    padded = np.zeros((N, C, H+2*pad, W+2*pad), dtype=images.dtype)
+    padded[:, :, pad:-pad, pad:-pad] = images
+
+    return padded
 
 # Step 14 - output_spatial_size (not yet solved)
 # TODO: implement
