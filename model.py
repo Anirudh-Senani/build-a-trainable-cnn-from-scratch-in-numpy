@@ -99,8 +99,23 @@ def output_spatial_size(input_size, kernel, stride, padding):
     # TODO: return the conv/pool output spatial dimension from input_size, kernel, stride, padding
     return (input_size + 2*padding - kernel)//stride + 1
 
-# Step 15 - im2col (not yet solved)
-# TODO: implement
+# Step 15 - im2col
+def im2col(images, kernel_h, kernel_w, stride, padding):
+    # TODO: Unroll overlapping patches of a 4D image tensor into a 2D column matrix.
+    padded = pad_2d(images, padding)
+    N, C, H, W = padded.shape
+    patches = []
+
+    out_h = output_spatial_size(images.shape[2], kernel_h, stride, padding)
+    out_w = output_spatial_size(images.shape[3], kernel_w, stride, padding)
+
+    for i in range(0, H-kernel_h+1, stride):
+        for j in range(0, W-kernel_w+1, stride):
+            patches.append(padded[:, :, i:i+kernel_h, j:j+kernel_w].reshape((N, C*kernel_h*kernel_w)))
+
+    patches = np.stack(patches).transpose((1,0,2))
+
+    return patches.reshape((N*out_h*out_w, C*kernel_h*kernel_w))
 
 # Step 16 - col2im (not yet solved)
 # TODO: implement
