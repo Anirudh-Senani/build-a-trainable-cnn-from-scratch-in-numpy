@@ -187,8 +187,14 @@ def conv2d_grad_bias(d_out):
     N, cout, oh, ow = d_out.shape
     return d_out.transpose((1,0,2,3)).reshape((cout, N*oh*ow)).sum(axis=-1)
 
-# Step 21 - conv2d_backward (not yet solved)
-# TODO: implement
+# Step 21 - conv2d_backward
+def conv2d_backward(d_out, cache):
+    # TODO: return (dx, dW, db) using the conv2d gradient helpers and the forward cache
+    dx = conv2d_grad_input(d_out, cache)
+    dW = conv2d_grad_weights(d_out, cache)
+    db = conv2d_grad_bias(d_out)
+
+    return dx, dW, db
 
 # Step 22 - maxpool2d_forward (not yet solved)
 # TODO: implement
