@@ -181,8 +181,11 @@ def conv2d_grad_weights(d_out, cache):
 
     return dw.reshape((cout, cin, kh, kw))
 
-# Step 20 - conv2d_grad_bias (not yet solved)
-# TODO: implement
+# Step 20 - conv2d_grad_bias
+def conv2d_grad_bias(d_out):
+    # TODO: return a length C_out gradient by reducing d_out over batch and spatial axes
+    N, cout, oh, ow = d_out.shape
+    return d_out.transpose((1,0,2,3)).reshape((cout, N*oh*ow)).sum(axis=-1)
 
 # Step 21 - conv2d_backward (not yet solved)
 # TODO: implement
