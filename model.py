@@ -58,7 +58,7 @@ import numpy as np
 
 def cross_entropy_loss(probs, labels, eps=1e-12):
     # TODO: return the mean negative log-likelihood of the true-class probabilities
-    return -np.log(np.maximum(gather_true_class_probs(probs, labels), eps)).mean()
+    return (-np.log(np.maximum(gather_true_class_probs(probs, labels), eps))).mean()
 
 # Step 9 - accuracy
 def accuracy(logits_or_probs, labels):
@@ -307,8 +307,13 @@ def linear_backward(dout, cache):
 
     return dx, dW, db
 
-# Step 34 - softmax_cross_entropy_forward (not yet solved)
-# TODO: implement
+# Step 34 - softmax_cross_entropy_forward
+def softmax_cross_entropy_forward(logits, y):
+    # TODO: return the mean cross-entropy loss for logits (N, C) and integer labels y (N,).
+    probs = stable_softmax(logits)
+    loss = cross_entropy_loss(probs, y)
+
+    return float(loss)
 
 # Step 35 - softmax_cross_entropy_backward (not yet solved)
 # TODO: implement
