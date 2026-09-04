@@ -283,8 +283,13 @@ def linear_grad_input(d_out, cache):
     # TODO: return dL/dX given d_out (N, D_out) and cache['weights'] (D_in, D_out)
     return d_out @ cache['weights'].T
 
-# Step 31 - linear_grad_weights (not yet solved)
-# TODO: implement
+# Step 31 - linear_grad_weights
+import numpy as np
+
+def linear_grad_weights(x, dout):
+    """Gradient of loss wrt linear-layer weights W of shape (D_in, D_out)."""
+    # TODO: Compute the gradient of a linear layer's loss wrt its weight matrix W.
+    return x.T @ dout
 
 # Step 32 - linear_grad_bias (not yet solved)
 # TODO: implement
