@@ -247,8 +247,10 @@ def maxpool2d_backward(d_out, cache):
 
     return dx
 
-# Step 25 - relu_forward (not yet solved)
-# TODO: implement
+# Step 25 - relu_forward
+def relu_forward(x):
+    # TODO: Compute the elementwise ReLU and cache the input for backprop.
+    return np.maximum(x, 0.0), {"x":x}
 
 # Step 26 - relu_backward (not yet solved)
 # TODO: implement
