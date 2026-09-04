@@ -257,8 +257,11 @@ def relu_backward(d_out, cache):
     # TODO: mask the upstream gradient by the positive entries of the cached input.
     return np.where(cache['x']>0.0, d_out, 0.0)
 
-# Step 27 - flatten_forward (not yet solved)
-# TODO: implement
+# Step 27 - flatten_forward
+def flatten_forward(x):
+    # TODO: reshape a 4D feature map into a 2D batch matrix and cache the original shape
+    N, C, H, W = x.shape
+    return x.reshape((N, C*H*W)), {'x_shape':x.shape}
 
 # Step 28 - flatten_backward (not yet solved)
 # TODO: implement
