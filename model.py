@@ -210,7 +210,7 @@ def maxpool2d_forward(x, kernel, stride):
         r = i//stride
         for j in range(0, W-kernel+1, stride):
             c = j//stride
-            out[:, :, r:r+1, c:c+1] = x[:, :, i:i+kernel, j:j+kernel].max(axis=(2, 3), keepdims=True)
+            out[:, :, r, c] = x[:, :, i:i+kernel, j:j+kernel].max(axis=(2, 3))
             argmax[:, :, r, c] = x[:, :, i:i+kernel, j:j+kernel].reshape((N, C, -1)).argmax(axis=-1)
 
     cache = dict(
