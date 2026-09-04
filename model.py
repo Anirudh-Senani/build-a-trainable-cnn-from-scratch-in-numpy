@@ -252,8 +252,10 @@ def relu_forward(x):
     # TODO: Compute the elementwise ReLU and cache the input for backprop.
     return np.maximum(x, 0.0), {"x":x}
 
-# Step 26 - relu_backward (not yet solved)
-# TODO: implement
+# Step 26 - relu_backward
+def relu_backward(d_out, cache):
+    # TODO: mask the upstream gradient by the positive entries of the cached input.
+    return np.where(cache['x']>0.0, d_out, 0.0)
 
 # Step 27 - flatten_forward (not yet solved)
 # TODO: implement
