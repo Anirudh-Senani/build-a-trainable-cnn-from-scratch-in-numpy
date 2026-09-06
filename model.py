@@ -239,11 +239,13 @@ def maxpool2d_backward(d_out, cache):
     stride = cache['stride']
     kernel = cache['kernel']
 
-    for i in range(oh):
-        r = i*stride
-        for j in range(ow):
-            c = j*stride
-            dx[:, :, r:r+kernel, c:c+kernel] += scatter_grad_window(d_out[:, :, i, j], cache['argmax'][:, :, i, j], kernel)[None, None, :, :]
+    for n in range(N):
+        for c in range(C):
+            for i in range(oh):
+                row = i*stride
+                for j in range(ow):
+                    col = j*stride
+                    dx[n, c, row:row+kernel, col:col+kernel] += scatter_grad_window(d_out[n, c, i, j], cache['argmax'][n, c, i, j], kernel)
 
     return dx
 
@@ -445,8 +447,12 @@ def lenet_forward(x, params):
         classifier=classifier
     )
 
-# Step 48 - backward_conv_block (not yet solved)
-# TODO: implement
+# Step 48 - backward_conv_block
+def backward_conv_block(dout, cache):
+    # TODO: backprop dout through the cached pool, relu, and conv layers in reverse order.
+    dx = maxpool2d_backward(dout, cache['pool_cache'])
+    dx = relu_backward(dx, cache['relu_cache'])
+    return conv2d_backward(dx, cache['conv_cache'])
 
 # Step 49 - backward_classifier_block (not yet solved)
 # TODO: implement
