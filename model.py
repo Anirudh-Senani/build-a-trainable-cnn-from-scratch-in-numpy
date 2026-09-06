@@ -515,8 +515,17 @@ def shuffle_indices(n, seed=0):
 
     return inds
 
-# Step 54 - train_test_split (not yet solved)
-# TODO: implement
+# Step 54 - train_test_split
+import math
+
+def train_test_split(x, y, test_fraction=0.2, seed=0):
+    # TODO: partition x and y into train and test halves using a shared shuffled order.
+    inds = shuffle_indices(y.shape[0], seed)
+    train_samples = math.ceil((1 - test_fraction) * y.shape[0])
+    train_inds = inds[:train_samples]
+    test_inds = inds[train_samples:]
+
+    return x[train_inds], y[train_inds], x[test_inds], y[test_inds]
 
 # Step 55 - iterate_minibatches (not yet solved)
 # TODO: implement
